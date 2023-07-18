@@ -1,0 +1,153 @@
+
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  
+  
+  #maze_container {
+      width: 1160px; /* this makes it so the camera is in the center */
+      height: 540px;
+      position: relative;
+      
+    }
+    #maze {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .player {
+      position: absolute;
+      top: 360px;
+      left: 480px;
+      width: 40px;
+      height: 40px;
+      background-color: blue;
+  }
+
+  
+  
+  
+  
+    /* CSS for the dropdown menu */
+    .dropdown {
+        
+        float: right;
+        
+        z-index: 999;
+        position: fixed;
+        left: 71%;
+        top: 30%;
+    }
+    
+    /* Style the dropdown button */
+    .dropdown .dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: #f2f2f2;
+        background-color: blue;
+        margin: 0;
+        padding: 8px 41px;
+        z-index: 999;
+        right: 50%;
+    }
+    
+    /* Style the dropdown content */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: max-content;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 999;
+        text-align: left;
+        right: 5%;
+
+    }
+    
+    /* Style the links inside the dropdown */
+    .dropdown-content a {
+        display: flex;
+        float: flex;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: right;
+        z-index: 999;
+        
+    }
+    
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {
+        background-color: #ddd;
+        z-index: 999;
+    }
+    
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+        z-index: 999;
+    }
+    
+  
+    .background {
+      background-image: url(/background.png);
+      height: 895px;
+      width: 1896px;
+      left: -6px;
+      top: -25px;
+      position: absolute;
+      z-index: 3;
+      
+    }	
+    .circle {
+      background-image: url(/player.png);
+      height: 895px;
+      width: 1896px;
+      left: -80px;
+      top: 86px;
+      position: absolute;
+      z-index: 2;
+      
+    }	
+    #score {
+      color: red;
+      font-size: 3rem;
+      z-index: 1;
+      position: fixed;
+      top: 20px;
+      right: 50%;
+    }
+  
+    .monster {
+      width: 40px;
+      height: 40px;
+      background-image: url(/monster.png);
+      position: absolute;
+    }
+  
+  
+    #winner {
+      color: blue;
+      font-size: 3rem;
+      z-index: 2;
+      position: fixed;
+      top: 80%;
+      right: 50%;
+    }
+  
+    
+
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
