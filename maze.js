@@ -40,7 +40,7 @@ const maze = document.getElementById('maze');
 const player = document.getElementById('player');
 let playerX = 6; // moves the player's spawn area 14 to the right
 let playerY = 10; // moves the player's spawn 6 down
-var score = -16; // makes score = 0
+var score = -13; // makes score = 0
 const numberOfMonsters = 10; // Adjust the number of monsters as desired
 
 let demonic = new Audio('demonic.mp3')
@@ -110,7 +110,7 @@ function map1() {
     do {
       x = Math.floor(Math.random() * mazeArray1[0].length); //makes sure it spawns within the 0's and not anything else like 1's or 2's
       y = Math.floor(Math.random() * mazeArray1.length);
-    } while (mazeArray1[y][x] == 1 || mazeArray1[y][x] == 4 || mazeArray1[y][x] == 3);
+    } while (mazeArray1[y][x] == 1 || mazeArray1[y][x] == 4 || mazeArray1[y][x] == 3); //so it cant go on 1, 4 or 3
     
     return { x, y };
   }
@@ -144,13 +144,13 @@ function map1() {
       const nextX = monsterX + moveX; //where the monster will move next in the X axis
       const nextY = monsterY + moveY; //where the monster will move next in the Y axis
 
-      if (mazeArray1[nextY][nextX] !== 1 && mazeArray1[nextY][nextX] !== 3) {
-        setTimeout(function() {
+      if (mazeArray1[nextY][nextX] !== 1 && mazeArray1[nextY][nextX] !== 3) { //makes it so the monster cant go on tile number 1 or 3
+        setTimeout(function() { //just a timer function 
           monster.style.left = nextX * 40 + 'px'; //Moves the monster on the X axis
           monster.style.top = nextY * 40 + 'px'; //Moves the monster on the X axis
           monsterw.play()
           checkCollision();
-        }, 500);
+        }, 500); //500 ms 0.5s
         
       }
       checkCollision();
@@ -159,11 +159,11 @@ function map1() {
 
   //sees if the monster has got you
   function checkCollision() {
-    for (const monster of monsters) {
+    for (const monster of monsters) { //for every monsters we have it creates a monster
       const monsterX = parseInt(monster.style.left) / 40;
-      const monsterY = parseInt(monster.style.top) / 40;
+      const monsterY = parseInt(monster.style.top) / 40; //parseInt means you make it into an int not just a string
 
-      if (playerX === monsterX && playerY === monsterY) {
+      if (playerX === monsterX && playerY === monsterY) { //if the player is in the same place as the monster x or y then it plays this
         demonic.play()
         restart();
         return;
@@ -183,7 +183,8 @@ function map1() {
       }
     }
     
-
+    
+    //this needs working on
     for (const win of wins) {
       const winX = parseInt(win.style.left) / 40;
       const winY = parseInt(win.style.top) / 40;
@@ -226,17 +227,17 @@ function map1() {
   }
 
   // Draw the maze on the screen
-  for (let i = 0; i < mazeArray1.length; i++) {
+  for (let i = 0; i < mazeArray1.length; i++) { //this is just math stuff
     for (let j = 0; j < mazeArray1[i].length; j++) {
       if (mazeArray1[i][j] === 1)  { // this is from the array 1
-        const wall = document.createElement('div');
-        wall.style.width = '40px';
-        wall.style.height = '40px';
-        wall.style.backgroundImage = "url('tile1.png')";
+        const wall = document.createElement('div'); //this creates a html element called wall
+        wall.style.width = '40px'; //sets the width of the wall
+        wall.style.height = '40px'; //sets the height of the wall
+        wall.style.backgroundImage = "url('tile1.png')"; //this is where gets the images from
         wall.style.position = 'absolute';
         wall.style.top = i * 40 + 'px';
         wall.style.left = j * 40 + 'px';
-        maze.appendChild(wall);
+        maze.appendChild(wall); //append child means you can create an object model and the wall part is the child we want to add
       }
     }
   }
@@ -280,7 +281,7 @@ function map1() {
         score++;
         const position = getRandomPosition();
         const food = document.createElement('img');
-        food.src = '/idk.png';
+        food.src = '/idk.png'; 
         food.style.width = '40px';
         food.style.height = '40px';
         food.style.position = 'absolute';
