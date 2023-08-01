@@ -231,7 +231,7 @@ disableScroll()
             const wall = document.createElement('div');
             wall.style.width = '40px';
             wall.style.height = '40px';
-            wall.style.backgroundImage = "url('tile1.png')";
+            wall.style.backgroundImage = "url('images/tile1.png')";
             wall.style.position = 'absolute';
             wall.style.top = i * 40 + 'px';
             wall.style.left = j * 40 + 'px';
@@ -247,7 +247,7 @@ disableScroll()
           const wall = document.createElement('div');
           wall.style.width = '40px';
           wall.style.height = '40px';
-          wall.style.backgroundImage = "url('tile1.png')";
+          wall.style.backgroundImage = "url('images/tile1.png')";
           wall.style.position = 'absolute';
           wall.style.top = i * 40 + 'px';
           wall.style.left = j * 40 + 'px';
@@ -262,7 +262,7 @@ disableScroll()
           const wall = document.createElement('div');
           wall.style.width = '40px';
           wall.style.height = '40px';
-          wall.style.backgroundImage = "url('tile2.png')";
+          wall.style.backgroundImage = "url('images/tile2.png')";
           wall.style.position = 'absolute';
           wall.style.top = i * 40 + 'px';
           wall.style.left = j * 40 + 'px';
@@ -278,7 +278,7 @@ disableScroll()
             const wall = document.createElement('div');
             wall.style.width = '40px';
             wall.style.height = '40px';
-            wall.style.backgroundImage = "url('tile3.png')";
+            wall.style.backgroundImage = "url('images/tile3.png')";
             wall.style.position = 'absolute';
             wall.style.top = i * 40 + 'px';
             wall.style.left = j * 40 + 'px';
@@ -295,7 +295,7 @@ disableScroll()
             const wall = document.createElement('div');
             wall.style.width = '40px';
             wall.style.height = '40px';
-            wall.style.backgroundImage = "url('tile4.png')";
+            wall.style.backgroundImage = "url('images/tile4.png')";
             wall.style.position = 'absolute';
             wall.style.top = i * 40 + 'px';
             wall.style.left = j * 40 + 'px';
@@ -312,7 +312,7 @@ disableScroll()
             const wall = document.createElement('div');
             wall.style.width = '40px';
             wall.style.height = '40px';
-            wall.style.backgroundImage = "url('tile5.png')";
+            wall.style.backgroundImage = "url('images/tile5.png')";
             wall.style.position = 'absolute';
             wall.style.top = i * 40 + 'px';
             wall.style.left = j * 40 + 'px';

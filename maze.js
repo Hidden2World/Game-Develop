@@ -11,7 +11,7 @@ function disableScroll() {
 }
 
 // Enable scrolling
-function enableScroll() {
+function enableScroll() { 
   window.onscroll = null;
 }
 
@@ -40,7 +40,7 @@ const maze = document.getElementById('maze');
 const player = document.getElementById('player');
 let playerX = 6; // moves the player's spawn area 14 to the right
 let playerY = 10; // moves the player's spawn 6 down
-var score = -13; // makes score = 0
+let score = 0; // makes score = 0
 const numberOfMonsters = 10; // Adjust the number of monsters as desired
 
 let demonic = new Audio('demonic.mp3')
@@ -53,7 +53,8 @@ function map1() {
   maze.innerHTML = '';
   playerX = 12;
   playerY = 9;
-  let mazeArray1 = [                    
+  let mazeArray1 = [     
+    //the maze array is 46 long and 45 deep 2,070 tiles               
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // #FF0000
     [1, 0, 1, 3, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // #FF0000
     [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 3, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
@@ -138,7 +139,7 @@ function map1() {
       const diffX = playerX - monsterX; //what the X difference between the player and monster is 
       const diffY = playerY - monsterY; //what the Y difference between the player and monster is 
 
-      const moveX = Math.sign(diffX);
+      const moveX = Math.sign(diffX); //checks if its positive or negative
       const moveY = Math.sign(diffY);
 
       const nextX = monsterX + moveX; //where the monster will move next in the X axis
@@ -170,6 +171,8 @@ function map1() {
       }
     }
 
+
+
     for (let i = 0; i < foods.length; i++) {
       const food = foods[i];
       const foodX = parseInt(food.style.left) / 40;
@@ -178,10 +181,11 @@ function map1() {
       if (playerX === foodX && playerY === foodY) {
         score++;
         document.getElementById('score').innerHTML = "Score: " + score;
-        food.remove();
+        food.remove(); //removes
         foods.splice(i, 1); // Remove the food item from the array
       }
     }
+
     
     
     //this needs working on
@@ -233,7 +237,7 @@ function map1() {
         const wall = document.createElement('div'); //this creates a html element called wall
         wall.style.width = '40px'; //sets the width of the wall
         wall.style.height = '40px'; //sets the height of the wall
-        wall.style.backgroundImage = "url('tile1.png')"; //this is where gets the images from
+        wall.style.backgroundImage = "url('images/tile1.png')"; //this is where gets the images from
         wall.style.position = 'absolute';
         wall.style.top = i * 40 + 'px';
         wall.style.left = j * 40 + 'px';
@@ -248,7 +252,7 @@ function map1() {
         const wall = document.createElement('div');
         wall.style.width = '40px';
         wall.style.height = '40px';
-        wall.style.backgroundImage = "url('tile3.png')";
+        wall.style.backgroundImage = "url('images/tile3.png')";
         wall.style.position = 'absolute';
         wall.style.top = i * 40 + 'px';
         wall.style.left = j * 40 + 'px';
@@ -274,23 +278,22 @@ function map1() {
     }
   }
 
-  // This is the scoring part
-  for (let i = 0; i < mazeArray1.length; i++) {
-    for (let j = 0; j < mazeArray1[i].length; j++) {
-      if (mazeArray1[i][j] === 2) {
-        score++;
+  //food 
+  let nbfood = 50; //how much food there is
+  for(i = 0; i < nbfood; i++) { // if i less than nbfood then it adds 1 of this
+      
+        score * 0 + 1; //times the score by 0 then adds 1 because the score starts off at number of monsters (this just solves mutliple problems)
         const position = getRandomPosition();
-        const food = document.createElement('img');
-        food.src = '/idk.png'; 
+        const food = document.createElement('img'); //legit just creates a element in the html
+        food.src = '/images/idk.png'; 
         food.style.width = '40px';
         food.style.height = '40px';
         food.style.position = 'absolute';
         food.style.top = position.y * 40 + 'px';
         food.style.left = position.x * 40 + 'px';
-        maze.appendChild(food);
-        foods.push(food);
-      }
-    }
+        maze.appendChild(food); //adds food to the wall
+        foods.push(food); //puts it on the screen
+      
   }
 
 

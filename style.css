@@ -96,7 +96,7 @@
   
 
   .background {
-    background-image: url(/background.png);
+    background-image: url(/images/background.png);
     height: 895px;
     width: 1896px;
     left: -6px;
@@ -106,7 +106,7 @@
     
   }	
   .circle {
-    background-image: url(/player.png);
+    background-image: url(/images/player.png);
     height: 895px;
     width: 1896px;
     left: -80px;
@@ -127,7 +127,7 @@
   .monster {
     width: 40px;
     height: 40px;
-    background-image: url(/monster.png);
+    background-image: url(/images/monster.png);
     position: absolute;
   }
 
