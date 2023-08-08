@@ -29,45 +29,115 @@
 
 
 
+.menu {
+  float: right;
+      
+      z-index: 999;
+      position:initial;
+      left: 70%;
+      top: 30%;
+      
+}
+
+
+  
+
   /* CSS for the dropdown menu */
   .dropdown {
       
-      float: right;
-      
-      z-index: 999;
-      position: fixed;
-      left: 70%;
-      top: 30%;
-  }
+    float: right;
+    
+    z-index: 999;
+    position: fixed;
+    left: 60%;
+    top: 7%;
+    background-image: url(/images/scroll1.png);
+    width: 450px;
+    height: 13%;
+    transition: transform 0.5s ease-in-out;
+    
+}
+
+/* Style the dropdown button */
+.dropdown .dropbtn {
+    font-size: 50px; /*was 168*/
+    border: none;
+    outline: none;
+    
+    
+    margin: 0;
+    
+    z-index: 999;
+    right: 50%;
+    transition: transform 0.5s ease-in-out;
+    justify-content: left;
+    
+}
+
+
+/* Style the dropdown button */
+.dropdown .scroll {
+  font-size: 50px; /*was 168*/
+  border: none;
+  outline: none;
+  display: none;
+  background-image: url(/images/scroll2.png);
+    width: 450px;
+    height: 13%;
+  margin: 0;
+  text-align: center;
+  z-index: 999;
+  right: 0;
   
-  /* Style the dropdown button */
-  .dropdown .dropbtn {
-      font-size: 16px;
-      border: none;
-      outline: none;
-      color: #f2f2f2;
-      background-color: gray;
-      margin: 0;
-      padding: 8px 41px;
-      z-index: 999;
-      right: 50%;
-      border: 10px solid gray;
-      border-radius: 20px;
-  }
+  justify-content: left;
+  position: absolute;
+  top: 0%;
+  width: 450px;
+  height: 70%;
+}
   
   /* Style the dropdown content */
   .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: max-content;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 999;
-      text-align: left;
-      right: 27.5%;
+    display: none;
+    position: absolute;
+    background-color: #CAA87E;
+    min-width: max-content;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 999;
+    text-align: left;
+    right: 45.5%;
+    transform: translateY(1000px);
+    top: 200%;
+    justify-content: center;
+    transition: transform 0.5s ease-in-out;
+    
+}
+
+.dropdown2 .dropbtn2 {
+  font-size: 16px; /*was 16px*/
+  border: none;
+  outline: none;
+  color: #f2f2f2;
+  background-color: #B08758;
+  margin: 0;
+  padding: 8px 41px;  /* was 8px 41px */
+  z-index: 999;
+  right: 50%;
+  transition: transform 0.5s ease-in-out;
+ 
+  
+  
+  
+}
+.dropdown-content2 {
+  display: none;
+  text-align: left;
+  justify-content: left;
+  align-content: start;
+  transition: transform 0.5s ease-in-out;
+}
 
 
-  }
   
   /* Style the links inside the dropdown */
   .dropdown-content a {
@@ -77,22 +147,175 @@
       padding: 12px 16px;
       text-decoration: none;
       display: block;
-      text-align: right;
+      text-align: center;
       z-index: 999;
+      transition: transform 0.5s ease-in-out;
+      
       
   }
   
   /* Change color of dropdown links on hover */
   .dropdown-content a:hover {
-      background-color: #ddd;
+      background-color: rgb(194, 157, 109); 
       z-index: 999;
+      transform: translateX(-20px);
+      
   }
-  
+
+  .back {
+    display: none;
+    position: absolute;
+    left: 1%;
+    top: -16.5%;
+    width: 100%;
+    background-image: url(/images/scroll.png);
+    height: 100%;
+    animation: grower 4.4s ease forwards;
+  }
+
+  .dropdown:hover .back {
+    display: block;
+    z-index: -1;
+  }
+
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
+    display: block;
+    z-index: 999;
+    animation: fadeInDown2 1.79s ease forwards;
+    transform: translateX(50px);
+}
+
+.dropdown:not(:hover) .back {
+  display: block;
+  z-index: 999;
+  animation: out 5s ease forwards;
+}
+
+.dropdown:hover .scroll {
+  display: block;
+  z-index: 999;
+  animation: scrolling 4.5s ease forwards;
+}
+
+.dropdown:not(:hover) .scroll {
+  display: block;
+  z-index: 999;
+  animation: scrollout 4.5s ease forwards;
+}
+
+
+
+
+  
+  /* Show the dropdown menu on hover */
+  .dropdown2:hover .dropdown-content2 {
       display: block;
       z-index: 999;
+      animation: fadeInDown 1.5s ease forwards;
+      
   }
+
+  .Map:nth-child(1) {
+    animation: fadeInDown 0.25s ease forwards;
+  }
+  
+  .Map:nth-child(2) {
+    animation: fadeInDown 0.25s ease forwards;
+  }
+  
+
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;           /* Starting opacity */
+      transform: translateY(-50px); /* Starting position above */
+    }
+    100% {
+      opacity: 1;           /* Ending opacity */
+      transform: translateY(0);    /* Ending position at the top */
+    }
+  }
+  @keyframes scrolling {
+    0% {
+                /* Starting opacity */
+      transform: translateY(48px); /* Starting position above */
+    }
+    
+    
+    100% {
+      opacity: 1;           /* Ending opacity */
+      transform: translateY(566.5px);    /* Ending position at the top */
+    }
+  }
+
+  @keyframes scrollout {
+    0% {
+      transform: translateY(566px);
+    }
+    100% {
+      transform: translateY(48px); 
+      
+    }
+  }
+  
+
+  @keyframes fadeInDown2 {
+    0% {
+      display: none;
+      opacity: 0;           /* Starting opacity */
+      transform: translateY(-110px); /* Starting position above */
+    }
+    25% {
+      opacity: 0.5;
+      display: none;
+    }
+    100% {
+      display: block;
+      opacity: 1;           /* Ending opacity */
+      transform: translateY(0);    /* Ending position at the top */
+    }
+  }
+
+  @keyframes out {
+    0% {
+      opacity: 1;           /* Starting opacity */
+      
+      height: 642%;
+    }
+   
+    
+    100% {
+      opacity: 1;           /* Ending opacity */
+      /* Ending position at the top */
+      height: 78%;   
+      
+    }
+  }
+
+  @keyframes grower {
+    0% {
+      opacity: 1;           /* Starting opacity */
+      
+      height: 80%;
+    }
+
+    
+    
+    95% {
+      height: 620.5%; 
+    }
+    
+    100% {
+      opacity: 1;           /* Ending opacity */
+      /* Ending position at the top */
+      height: 623.5%;   
+      
+    }
+  }
+
+
+  
+
   
 
   .background {

@@ -43,8 +43,8 @@ let playerY = 10; // moves the player's spawn 6 down
 let score = 0; // makes score = 0
 const numberOfMonsters = 10; // Adjust the number of monsters as desired
 
-let demonic = new Audio('demonic.mp3')
-let monsterw = new Audio('monster.mp3')
+let demonic = new Audio('got_you.mp3') //gets you
+let monsterw = new Audio('me.mp3') //moves
 
 map1();
 
