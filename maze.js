@@ -38,10 +38,11 @@ const wins = [];
 
 const maze = document.getElementById('maze');
 const player = document.getElementById('player');
-let playerX = 6; // moves the player's spawn area 14 to the right
-let playerY = 10; // moves the player's spawn 6 down
+let playerX = 12;
+let playerY = 9;
 let score = 0; // makes score = 0
 const numberOfMonsters = 10; // Adjust the number of monsters as desired
+let starter = 0;
 
 let demonic = new Audio('got_you.mp3') //gets you
 let monsterw = new Audio('me.mp3') //moves
@@ -51,8 +52,10 @@ map1();
 // Generate the maze using a 2D array
 function map1() {
   maze.innerHTML = '';
-  playerX = 12;
-  playerY = 9;
+  updatePlayerPosition();
+  
+
+
   let mazeArray1 = [     
     //the maze array is 46 long and 45 deep 2,070 tiles               
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // #FF0000
@@ -61,7 +64,7 @@ function map1() {
     [1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 3, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1],
     [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 2, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 1, 1, 1, 1, 3, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 2, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 0, 1, 3, 1, 0, 1, 1, 1, 1, 0, 1, 2, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1],
     [1, 0, 1, 3, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 3, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1],
@@ -101,9 +104,104 @@ function map1() {
     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
   ];
+
+
+
+
   
 
+  var startTime = 0; // to keep track of the start time
+  var stopwatchInterval; // to keep track of the interval
+  var elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
+  var isrunning = false;
+  
+  
+  
+  function startStopwatch() {
+    if (!stopwatchInterval) {
+      elapsedPausedTime = 0; // set elapsed paused time to 0
+      startTime = new Date().getTime() - elapsedPausedTime; // get the starting time by subtracting the elapsed paused time from the current time
+      stopwatchInterval = setInterval(updateStopwatch, 100); // update every 1 seconds
+      isRunning = true;
+      
+    }
+  }
 
+  function stopStopwatch() {
+    clearInterval(stopwatchInterval); // stop the interval
+    elapsedPausedTime = new Date().getTime() - startTime; // calculate elapsed paused time
+    stopwatchInterval = null; // reset the interval variable
+    isRunning = false;
+    
+  }
+
+  function updateStopwatch() {
+    var currentTime = new Date().getTime(); // get current time in milliseconds
+    var elapsedTime = currentTime - startTime; // calculate elapsed time in milliseconds
+    var milliseconds = Math.trunc(elapsedTime % 1000).toString().charAt(0) ; // calculate seconds
+    var seconds = Math.floor(elapsedTime / 1000) % 60; // calculate seconds
+    var minutes = Math.floor(elapsedTime / 1000 / 60) % 60; // calculate minutes
+    
+    var displayTime = seconds + "."  + milliseconds + "s"; // format display time
+    var displayTime2 = minutes + "m" + ":" + seconds + "." + milliseconds + "s"; // format display time
+
+    
+    if (elapsedTime > 0) {
+      if (elapsedTime < 59999){
+        console.log(displayTime);
+        document.getElementById('stopwatch').innerHTML = displayTime;
+        for (const win of wins) {
+          const winX = parseInt(win.style.left) / 40;
+          const winY = parseInt(win.style.top) / 40;
+          if (playerX === winX && playerY === winY) {
+            document.getElementById('winner').innerHTML = "You Win! Score: " + score +"<br>           " + "You took: " + displayTime;
+            console.log('you win')
+            console.log(displayTime2);
+            stopStopwatch();
+            
+            
+          }
+        }
+      }
+    }
+    if (elapsedTime > 59999) {
+      
+      document.getElementById('stopwatch').innerHTML = displayTime2;
+      console.log(displayTime2);
+      
+    }
+
+    document.addEventListener('keydown', (event) => {
+      switch (event.key) {
+
+        case '5':
+        document.getElementById('winner').innerHTML = "You Win! Score: " + score +"<br>           " + "You took: " + displayTime2;
+        console.log('you win')
+        console.log(displayTime2);
+        stopStopwatch();
+
+    }
+
+  });
+
+
+    
+    
+    
+    
+
+    
+    
+    
+  }
+  
+  
+
+  
+  
+
+  
+  
   
   //finds a random pos
   function getRandomPosition() {
@@ -111,13 +209,22 @@ function map1() {
     do {
       x = Math.floor(Math.random() * mazeArray1[0].length); //makes sure it spawns within the 0's and not anything else like 1's or 2's
       y = Math.floor(Math.random() * mazeArray1.length);
-    } while (mazeArray1[y][x] == 1 || mazeArray1[y][x] == 4 || mazeArray1[y][x] == 3); //so it cant go on 1, 4 or 3
+    } while (mazeArray1[y][x] == 1 || mazeArray1[y][x] == 4 || mazeArray1[y][x] == 3 || mazeArray1[y][x] == 2); //so it cant go on 1, 4 or 3
+    
     
     return { x, y };
+    a
   }
+
+  const initialPosition = getRandomPosition();
+  playerX = initialPosition.x;
+  playerY = initialPosition.y;
+
+  updatePlayerPosition();
 
 
   function updatePlayerPosition() {
+    
     player.style.left = `${playerX * 40}px`;
     player.style.top = `${playerY * 40}px`;
 
@@ -127,36 +234,33 @@ function map1() {
     container.style.top = `${-(playerY * 40) + (container.offsetHeight / 1.5 ) }px`;
 
     
-    
+  
 
+  for (const monster of monsters) {
+    const monsterX = parseInt(monster.style.left) / 40; //parseint converts a string into a int (very useful stuff)
+    const monsterY = parseInt(monster.style.top) / 40;
 
-    
+    const diffX = playerX - monsterX; //what the X difference between the player and monster is 
+    const diffY = playerY - monsterY; //what the Y difference between the player and monster is 
 
-    for (const monster of monsters) {
-      const monsterX = parseInt(monster.style.left) / 40; //parseint converts a string into a int (very useful stuff)
-      const monsterY = parseInt(monster.style.top) / 40;
+    const moveX = Math.sign(diffX); //checks if its positive or negative
+    const moveY = Math.sign(diffY);
 
-      const diffX = playerX - monsterX; //what the X difference between the player and monster is 
-      const diffY = playerY - monsterY; //what the Y difference between the player and monster is 
+    const nextX = monsterX + moveX; //where the monster will move next in the X axis
+    const nextY = monsterY + moveY; //where the monster will move next in the Y axis
 
-      const moveX = Math.sign(diffX); //checks if its positive or negative
-      const moveY = Math.sign(diffY);
-
-      const nextX = monsterX + moveX; //where the monster will move next in the X axis
-      const nextY = monsterY + moveY; //where the monster will move next in the Y axis
-
-      if (mazeArray1[nextY][nextX] !== 1 && mazeArray1[nextY][nextX] !== 3) { //makes it so the monster cant go on tile number 1 or 3
-        setTimeout(function() { //just a timer function 
-          monster.style.left = nextX * 40 + 'px'; //Moves the monster on the X axis
-          monster.style.top = nextY * 40 + 'px'; //Moves the monster on the X axis
-          monsterw.play()
-          checkCollision();
-        }, 500); //500 ms 0.5s
-        
-      }
-      checkCollision();
+    if (mazeArray1[nextY][nextX] !== 1 && mazeArray1[nextY][nextX] !== 2 && mazeArray1[nextY][nextX] !== 3) { //makes it so the monster cant go on tile number 1 or 3
+      setTimeout(function() { //just a timer function 
+        monster.style.left = nextX * 40 + 'px'; //Moves the monster on the X axis
+        monster.style.top = nextY * 40 + 'px'; //Moves the monster on the X axis
+        monsterw.play()
+        checkCollision();
+      }, 500); //500 ms 0.5s
+      
     }
+    checkCollision();
   }
+}
 
   //sees if the monster has got you
   function checkCollision() {
@@ -183,26 +287,15 @@ function map1() {
         document.getElementById('score').innerHTML = "Score: " + score;
         food.remove(); //removes
         foods.splice(i, 1); // Remove the food item from the array
+        
       }
+      
     }
-
-    
-    
-    //this needs working on
-    for (const win of wins) {
-      const winX = parseInt(win.style.left) / 40;
-      const winY = parseInt(win.style.top) / 40;
-      if (playerX === winX && playerY === winY) {
-        document.getElementById('winner').innerHTML = "You Win! with the score of: " + score;
-        console.log('you win')
-      }
-    }
-
-    
 
   }
 
   function initializeMonsters() {
+    
     for (let i = 0; i < numberOfMonsters; i++) {
       const position = getRandomPosition();
       const monster = document.createElement('div');
@@ -212,15 +305,16 @@ function map1() {
       maze.appendChild(monster);
       monsters.push(monster);
     }
+    
   }
 
   //this makes it so when you restart you restart
   function restart() {
-    playerX = 12;
-    playerY = 9;
+    
     score--;
     document.getElementById('score').innerHTML = "Score: " + score; 
     updatePlayerPosition();
+
 
     // Reset monster positions
     for (const monster of monsters) {
@@ -228,6 +322,24 @@ function map1() {
       monster.style.left = position.x * 40 + 'px';
       monster.style.top = position.y * 40 + 'px';
     }
+  }
+
+  function reset() {
+    stopStopwatch();
+    playerX = initialPosition.x;
+    playerY = initialPosition.y;
+    
+    document.getElementById('score').innerHTML = "Score: " + score; 
+    updatePlayerPosition();
+
+
+    // Reset monster positions
+    for (const monster of monsters) {
+      const position = getRandomPosition(); 
+      monster.style.left = position.x * 40 + 'px';
+      monster.style.top = position.y * 40 + 'px';
+    }
+
   }
 
   // Draw the maze on the screen
@@ -245,6 +357,38 @@ function map1() {
       }
     }
   }
+
+  // Draw the maze on the screen
+  for (let i = 0; i < mazeArray1.length; i++) {
+    for (let j = 0; j < mazeArray1[i].length; j++) {
+      if (mazeArray1[i][j] === 0)  { // this is from the array 1
+        const wall = document.createElement('div');
+        wall.style.width = '40px';
+        wall.style.height = '40px';
+        wall.style.backgroundColor = 'teal';
+        wall.style.position = 'absolute';
+        wall.style.top = i * 40 + 'px';
+        wall.style.left = j * 40 + 'px';
+        maze.appendChild(wall);
+      }
+    }
+  }
+  // Draw the maze on the screen
+  for (let i = 0; i < mazeArray1.length; i++) {
+    for (let j = 0; j < mazeArray1[i].length; j++) {
+      if (mazeArray1[i][j] === 2)  { // this is from the array 1
+        const wall = document.createElement('div');
+        wall.style.width = '40px';
+        wall.style.height = '40px';
+        wall.style.backgroundImage = "url('images/tile2.png')";
+        wall.style.position = 'absolute';
+        wall.style.top = i * 40 + 'px';
+        wall.style.left = j * 40 + 'px';
+        maze.appendChild(wall);
+      }
+    }
+  }
+
   // Draw the maze on the screen
   for (let i = 0; i < mazeArray1.length; i++) {
     for (let j = 0; j < mazeArray1[i].length; j++) {
@@ -260,7 +404,6 @@ function map1() {
       }
     }
   }
-
 
   for (let i = 0; i < mazeArray1.length; i++) {
     for (let j = 0; j < mazeArray1[i].length; j++) {
@@ -297,9 +440,72 @@ function map1() {
   }
 
 
+  let pressedKeys = ''; // String to keep track of pressed keys
+  const cheat1 = 'cheat1';
+  const cheat2 = 'cheat2';
+  const cheat3 = 'cheat3';
+  const cheat4 = '4';
+
+  document.addEventListener('keydown', (event) => {
+    const pressedKey = event.key;
+
+      // Add the pressed key to the string
+      pressedKeys += pressedKey;
+    
+      // Check if the pressed keys contain the desired sequence
+    if (pressedKeys.includes(cheat1)) {
+      score += 1;
+      document.getElementById('score').innerHTML = "Score: " + score;
+      // Clear the string for the next sequence
+      pressedKeys = '';
+    }
+
+    if (pressedKeys.includes(cheat2)) {
+      score += 10;
+      document.getElementById('score').innerHTML = "Score: " + score;
+      // Clear the string for the next sequence
+      pressedKeys = '';
+    }
+
+    if (pressedKeys.includes(cheat3)) {
+      score += 50;
+      document.getElementById('score').innerHTML = "Score: " + score;
+      // Clear the string for the next sequence
+      pressedKeys = '';
+    }
+
+    switch (event.key) {
+      case 'i':
+        playerY--;
+          updatePlayerPosition();
+      break;
+
+      case 'k':
+        playerY++;
+          updatePlayerPosition();
+      break;
+
+      case 'j':
+        playerX--;
+          updatePlayerPosition();
+      break;
+
+      case 'l':
+        playerX++;
+          updatePlayerPosition();
+      break;
+
+
+    }
+
+    
+});
+
+
 
 
   initializeMonsters();
+  
 
 
 
@@ -309,33 +515,118 @@ function map1() {
   document.addEventListener('keydown', (event) => {
     switch (event.key) {
       case 'w':
-        if (mazeArray1[playerY - 1][playerX] !== 1 && mazeArray1[playerY - 1][playerX] !== 3) {
+        if (mazeArray1[playerY - 1][playerX] !== 1 && mazeArray1[playerY - 1][playerX] !== 3 && mazeArray1[playerY - 1][playerX] !== 2) {
           playerY--;
+          if (starter == 0) {
+            starter++;
+            startStopwatch();
+            console.log(starter);
+          }
           updatePlayerPosition();
         }
         break;
       case 's':
-        if (mazeArray1[playerY + 1][playerX] !== 1 && mazeArray1[playerY + 1][playerX] !== 3) {
+        if (mazeArray1[playerY + 1][playerX] !== 1 && mazeArray1[playerY + 1][playerX] !== 3 && mazeArray1[playerY + 1][playerX] !== 2) {
           playerY++;
+          if (starter == 0) {
+            starter++;
+            startStopwatch();
+            console.log(starter);
+          }
           updatePlayerPosition();
         }
         break;
       case 'a':
-        if (mazeArray1[playerY][playerX - 1] !== 1 && mazeArray1[playerY][playerX - 1] !== 3) {
+        if (mazeArray1[playerY][playerX - 1] !== 1 && mazeArray1[playerY][playerX - 1] !== 3 && mazeArray1[playerY][playerX - 1] !== 2) {
+          
           playerX--;
+          if (starter == 0) {
+            starter++;
+            startStopwatch();
+            console.log(starter);
+          }
+
           updatePlayerPosition();
+          
         }
         break;
       case 'd':
-        if (mazeArray1[playerY][playerX + 1] !== 1 && mazeArray1[playerY][playerX + 1] !== 3) {
+        if (mazeArray1[playerY][playerX + 1] !== 1 && mazeArray1[playerY][playerX + 1] !== 3 && mazeArray1[playerY][playerX + 1] !== 2) {
           playerX++;
+          if (starter == 0) {
+            starter++;
+            startStopwatch();
+            console.log(starter);
+          }
           updatePlayerPosition();
         }
         
         break; 
-    }
-    
 
+
+        case 'ArrowUp':
+        if (mazeArray1[playerY - 1][playerX] !== 1 && mazeArray1[playerY - 1][playerX] !== 3 && mazeArray1[playerY - 1][playerX] !== 2) {
+          playerY--;
+          if (starter == 0) {
+            starter++;
+            startStopwatch();
+            console.log(starter);
+          }
+          updatePlayerPosition();
+        }
+        break;
+      case 'ArrowDown':
+        if (mazeArray1[playerY + 1][playerX] !== 1 && mazeArray1[playerY + 1][playerX] !== 3 && mazeArray1[playerY + 1][playerX] !== 2) {
+          playerY++;
+          if (starter == 0) {
+            starter++;
+            startStopwatch();
+            console.log(starter);
+          }
+          updatePlayerPosition();
+        }
+        break;
+      case 'ArrowLeft':
+        if (starter == 0) {
+          starter++;
+          startStopwatch();
+          console.log(starter);
+        }
+        if (mazeArray1[playerY][playerX - 1] !== 1 && mazeArray1[playerY][playerX - 1] !== 3 && mazeArray1[playerY][playerX - 1] !== 2) {
+          
+          playerX--;
+          if (starter == 0) {
+            starter++;
+            
+            startStopwatch();
+            console.log(starter);
+          }
+
+          updatePlayerPosition();
+          
+        }
+        break;
+      case 'ArrowRight':
+        if (mazeArray1[playerY][playerX + 1] !== 1 && mazeArray1[playerY][playerX + 1] !== 3 && mazeArray1[playerY][playerX + 1] !== 2) {
+          playerX++;
+          if (starter == 0) {
+            starter++;
+            startStopwatch();
+            console.log(starter);
+          }
+          updatePlayerPosition();
+        }
+        
+        break; 
+
+
+        case 'r':
+          reset();
+          break;
+
+
+      
+    }
 
   });
 }

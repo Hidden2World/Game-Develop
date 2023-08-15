@@ -9,6 +9,7 @@
     width: 1160px; /* this makes it so the camera is in the center */
     height: 540px;
     position: relative;
+    background-color: teal;
     
   }
   #maze {
@@ -22,8 +23,10 @@
     left: 480px;
     width: 40px;
     height: 40px;
-    background-color: blue;
+    background-image: url(/images/mover.png);
 }
+
+
 
 
 
@@ -356,12 +359,29 @@
 
 
   #winner {
-    color: blue;
+    color: red;
     font-size: 3rem;
     z-index: 10;
     position: fixed;
-    top: 80%;
-    right: 50%;
+    top: 84%;
+    right: 54%;
+    background-color: black;
+    border-color: white;
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+
+  #stopwatch {
+    color: red;
+    font-size: 3rem;
+    z-index: 10;
+    position: fixed;
+    top: 84%;
+    right: 54%;
+    background-color: black;
+    border-color: white;
+    border-radius: 20px;
+    padding: 3px 10px;
   }
 
   
