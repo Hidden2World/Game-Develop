@@ -45,7 +45,7 @@ const numberOfMonsters = 10; // Adjust the number of monsters as desired
 let starter = 0;
 
 let demonic = new Audio('got_you.mp3') //gets you
-let monsterw = new Audio('me.mp3') //moves
+let monsterw = new Audio('demonic.mp3') //moves
 
 map1();
 
@@ -148,7 +148,7 @@ function map1() {
     
     if (elapsedTime > 0) {
       if (elapsedTime < 59999){
-        console.log(displayTime);
+        
         document.getElementById('stopwatch').innerHTML = displayTime;
         for (const win of wins) {
           const winX = parseInt(win.style.left) / 40;
@@ -156,7 +156,7 @@ function map1() {
           if (playerX === winX && playerY === winY) {
             document.getElementById('winner').innerHTML = "You Win! Score: " + score +"<br>           " + "You took: " + displayTime;
             console.log('you win')
-            console.log(displayTime2);
+            
             stopStopwatch();
             
             
@@ -270,6 +270,8 @@ function map1() {
 
       if (playerX === monsterX && playerY === monsterY) { //if the player is in the same place as the monster x or y then it plays this
         demonic.play()
+        
+        takescore();
         restart();
         return;
       }
@@ -307,11 +309,20 @@ function map1() {
     }
     
   }
+  let e = 0
+  function takescore() {
+    while(e < 1) {
+      score--;
+      e++;
+    }
+    
+  }
 
   //this makes it so when you restart you restart
   function restart() {
     
-    score--;
+    
+    
     document.getElementById('score').innerHTML = "Score: " + score; 
     updatePlayerPosition();
 
@@ -444,7 +455,7 @@ function map1() {
   const cheat1 = 'cheat1';
   const cheat2 = 'cheat2';
   const cheat3 = 'cheat3';
-  const cheat4 = '4';
+  const cheat4 = 'cheat4';
 
   document.addEventListener('keydown', (event) => {
     const pressedKey = event.key;
@@ -469,6 +480,13 @@ function map1() {
 
     if (pressedKeys.includes(cheat3)) {
       score += 50;
+      document.getElementById('score').innerHTML = "Score: " + score;
+      // Clear the string for the next sequence
+      pressedKeys = '';
+    }
+
+    if (pressedKeys.includes(cheat4)) {
+      score += 100;
       document.getElementById('score').innerHTML = "Score: " + score;
       // Clear the string for the next sequence
       pressedKeys = '';
@@ -512,7 +530,7 @@ function map1() {
 
 
   // Move the player using keys that I chose
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keyup', (event) => {
     switch (event.key) {
       case 'w':
         if (mazeArray1[playerY - 1][playerX] !== 1 && mazeArray1[playerY - 1][playerX] !== 3 && mazeArray1[playerY - 1][playerX] !== 2) {
@@ -524,6 +542,7 @@ function map1() {
           }
           updatePlayerPosition();
         }
+        e = 0;
         break;
       case 's':
         if (mazeArray1[playerY + 1][playerX] !== 1 && mazeArray1[playerY + 1][playerX] !== 3 && mazeArray1[playerY + 1][playerX] !== 2) {
@@ -535,6 +554,7 @@ function map1() {
           }
           updatePlayerPosition();
         }
+        e = 0;
         break;
       case 'a':
         if (mazeArray1[playerY][playerX - 1] !== 1 && mazeArray1[playerY][playerX - 1] !== 3 && mazeArray1[playerY][playerX - 1] !== 2) {
@@ -549,6 +569,7 @@ function map1() {
           updatePlayerPosition();
           
         }
+        e = 0;
         break;
       case 'd':
         if (mazeArray1[playerY][playerX + 1] !== 1 && mazeArray1[playerY][playerX + 1] !== 3 && mazeArray1[playerY][playerX + 1] !== 2) {
@@ -560,6 +581,7 @@ function map1() {
           }
           updatePlayerPosition();
         }
+        e = 0;
         
         break; 
 
@@ -574,6 +596,7 @@ function map1() {
           }
           updatePlayerPosition();
         }
+        e = 0;
         break;
       case 'ArrowDown':
         if (mazeArray1[playerY + 1][playerX] !== 1 && mazeArray1[playerY + 1][playerX] !== 3 && mazeArray1[playerY + 1][playerX] !== 2) {
@@ -585,6 +608,7 @@ function map1() {
           }
           updatePlayerPosition();
         }
+        e = 0;
         break;
       case 'ArrowLeft':
         if (starter == 0) {
@@ -605,6 +629,7 @@ function map1() {
           updatePlayerPosition();
           
         }
+        e = 0;
         break;
       case 'ArrowRight':
         if (mazeArray1[playerY][playerX + 1] !== 1 && mazeArray1[playerY][playerX + 1] !== 3 && mazeArray1[playerY][playerX + 1] !== 2) {
@@ -616,6 +641,7 @@ function map1() {
           }
           updatePlayerPosition();
         }
+        e = 0;
         
         break; 
 
