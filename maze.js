@@ -519,15 +519,8 @@ function map1() {
     
 });
 
-
-
-
-  initializeMonsters();
+  initializeMonsters(); 
   
-
-
-
-
 
   // Move the player using keys that I chose
   document.addEventListener('keyup', (event) => {

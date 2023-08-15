@@ -340,28 +340,22 @@ disableScroll()
       }
     }
   
-    // This is the scoring part
-    for (let i = 0; i < mazeArray1.length; i++) {
-      for (let j = 0; j < mazeArray1[i].length; j++) {
-        if (mazeArray1[i][j] === 2) {
-          score++;
-          const position = getRandomPosition();
-          const food = document.createElement('img');
-          food.src = '/idk.png';
-          food.style.width = '40px';
-          food.style.height = '40px';
-          food.style.position = 'absolute';
-          food.style.top = position.y * 40 + 'px';
-          food.style.left = position.x * 40 + 'px';
-          maze.appendChild(food);
-          foods.push(food);
-        }
-      }
-    }
-  
-  
-  
-  
+    //food 
+  let nbfood = 50; //how much food there is
+  for(i = 0; i < nbfood; i++) { // if i less than nbfood then it adds 1 of this
+      
+        score * 0 + 1; //times the score by 0 then adds 1 because the score starts off at number of monsters (this just solves mutliple problems)
+        const position = getRandomPosition();
+        const food = document.createElement('img'); //legit just creates a element in the html
+        food.src = '/images/idk.png'; 
+        food.style.width = '40px';
+        food.style.height = '40px';
+        food.style.position = 'absolute';
+        food.style.top = position.y * 40 + 'px';
+        food.style.left = position.x * 40 + 'px';
+        maze.appendChild(food); //adds food to the wall
+        foods.push(food); //puts it on the screen
+  }
     initializeMonsters();
   
   
@@ -402,13 +396,3 @@ disableScroll()
   
     });
   }
-  
-  
-  
-  
-  document.getElementById('button2').addEventListener("click",changeMap);
-  document.getElementById('button').addEventListener("click",map1);
-  
-  
-  
-  
