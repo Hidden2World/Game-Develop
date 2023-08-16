@@ -356,6 +356,75 @@ disableScroll()
         maze.appendChild(food); //adds food to the wall
         foods.push(food); //puts it on the screen
   }
+
+    let pressedKeys = ''; // String to keep track of pressed keys
+      const cheat1 = 'cheat1';
+      const cheat2 = 'cheat2';
+      const cheat3 = 'cheat3';
+      const cheat4 = 'cheat4';
+    
+      document.addEventListener('keydown', (event) => {
+        const pressedKey = event.key;
+    
+          // Add the pressed key to the string
+          pressedKeys += pressedKey;
+        
+          // Check if the pressed keys contain the desired sequence
+        if (pressedKeys.includes(cheat1)) {
+          score += 1;
+          document.getElementById('score').innerHTML = "Score: " + score;
+          // Clear the string for the next sequence
+          pressedKeys = '';
+        }
+    
+        if (pressedKeys.includes(cheat2)) {
+          score += 10;
+          document.getElementById('score').innerHTML = "Score: " + score;
+          // Clear the string for the next sequence
+          pressedKeys = '';
+        }
+    
+        if (pressedKeys.includes(cheat3)) {
+          score += 50;
+          document.getElementById('score').innerHTML = "Score: " + score;
+          // Clear the string for the next sequence
+          pressedKeys = '';
+        }
+    
+        if (pressedKeys.includes(cheat4)) {
+          score += 100;
+          document.getElementById('score').innerHTML = "Score: " + score;
+          // Clear the string for the next sequence
+          pressedKeys = '';
+        }
+    
+        switch (event.key) {
+          case 'i':
+            playerY--;
+              updatePlayerPosition();
+          break;
+    
+          case 'k':
+            playerY++;
+              updatePlayerPosition();
+          break;
+    
+          case 'j':
+            playerX--;
+              updatePlayerPosition();
+          break;
+    
+          case 'l':
+            playerX++;
+              updatePlayerPosition();
+          break;
+    
+    
+        }
+    
+        
+    });
+    
     initializeMonsters();
   
   
